@@ -22,7 +22,7 @@ function sqldump ()
 
 function dumpAll ()
 {
-  if [ ! -d "$1" ]; then
+  if [ ! -d "$WORKDIR/$1" ]; then
     mkdir $WORKDIR/$1
   fi
   RESULTFILE=$WORKDIR/$1/$DATE'_schema.sql'
@@ -47,7 +47,7 @@ function dump_minutely ()
   echo "Minutely"
   MINUTES=$(echo "60" | bc)
   dumpAll 'minutely'
-  find minutely/ -maxdepth 1 -name "*.sql" -mmin +$MINUTES -delete
+  find $WORKDIR/minutely/ -maxdepth 1 -name "*.sql" -mmin +$MINUTES -delete
 }
 
 function dump_hourly ()
@@ -55,7 +55,7 @@ function dump_hourly ()
   echo "Hourly"
   MINUTES=$(echo "60*12" | bc)
   dumpAll 'hourly'
-  echo find minutely/ -maxdepth 1 -name "*.sql" -mmin +$MINUTES -delete
+  echo find $WORKDIR/minutely/ -maxdepth 1 -name "*.sql" -mmin +$MINUTES -delete
 }
 
 function dump_daily ()
@@ -63,7 +63,7 @@ function dump_daily ()
   echo "Daily"
   MINUTES=$(echo "60*24" | bc)
   dumpAll 'hourly'
-  echo find minutely/ -maxdepth 1 -name "*.sql" -mmin +$MINUTES -delete
+  echo find $WORKDIR/minutely/ -maxdepth 1 -name "*.sql" -mmin +$MINUTES -delete
 }
 
 function dump_weekly ()
@@ -71,7 +71,7 @@ function dump_weekly ()
   echo "Weekly"
   MINUTES=$(echo "60*24*7*4" | bc)
   dumpAll 'weekly'
-  echo find minutely/ -maxdepth 1 -name "*.sql" -mmin +$MINUTES -delete
+  echo find $WORKDIR/minutely/ -maxdepth 1 -name "*.sql" -mmin +$MINUTES -delete
 }
 
 function dump_monthly ()
@@ -79,7 +79,7 @@ function dump_monthly ()
   echo "Weekly"
   MINUTES=$(echo "60*24*30*12" | bc)
   dumpAll 'weekly'
-  echo find minutely/ -maxdepth 1 -name "*.sql" -mmin +$MINUTES -delete
+  echo find $WORKDIR/minutely/ -maxdepth 1 -name "*.sql" -mmin +$MINUTES -delete
 }
 
 echo 'Start '`date +%Y-%m-%d_%H:%M:%S`
