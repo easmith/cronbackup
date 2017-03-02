@@ -10,7 +10,7 @@
 # 22 4 * * 0 /PATHTO/backup.sh weekly >> /PATHTO/log.txt 2>&1
 # 37 4 1 * * /PATHTO/backup.sh monthly >> /PATHTO/log.txt 2>&1
 
-DATABASE="tachpass"
+DATABASE="database_name"
 ENCODING="utf8"
 DATE=`date +%Y%m%d%H%M%S`
 WORKDIR=`dirname $0`
