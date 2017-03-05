@@ -32,7 +32,7 @@ function dumpAndClear ()
   sqldump '--no-create-info --no-data --extended-insert=false --triggers=true --disable-keys' $RESULTFILE
   echo $RESULTFILE
   
-  RESULTFILE=$WORKDIR/$1/$DATE'_procecures.sql'
+  RESULTFILE=$WORKDIR/$1/$DATE'_procedures.sql'
   sqldump '--no-create-info --no-data --extended-insert=false --triggers=false --routines' $RESULTFILE
   echo $RESULTFILE
 
@@ -44,7 +44,7 @@ function showcron ()
   DATABASE=$1
   echo "Cron jobs for database '$DATABASE':"
   SCRIPT_NAME=`basename $0`
-  CRON_MINUTELY="15/15 * * * * /PATHTO/$SCRIPT_NAME minutely $DATABASE >> /PATHTO/minutely.log 2>&1"
+  CRON_MINUTELY="15,30,45 * * * * /PATHTO/$SCRIPT_NAME minutely $DATABASE >> /PATHTO/minutely.log 2>&1"
   CRON_HOURLY="0 * * * * /PATHTO/$SCRIPT_NAME hourly $DATABASE >> /PATHTO/hourly.log 2>&1"
   CRON_DAILY="7 4 * * * /PATHTO/$SCRIPT_NAME daily $DATABASE >> /PATHTO/daily.log 2>&1"
   CRON_WEEKLY="22 4 * * 0 /PATHTO/$SCRIPT_NAME weekly $DATABASE >> /PATHTO/weekly.log 2>&1"
